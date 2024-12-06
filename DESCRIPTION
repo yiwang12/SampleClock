@@ -13,6 +13,7 @@ RoxygenNote: 7.3.2
 Imports:
 	data.table (>= 1.9.4)
 	TSCAN
+	matrixStats
 	TreeCorTreat
 	tidyverse
 	Matrix
