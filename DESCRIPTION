@@ -16,7 +16,10 @@ Imports:
 	TreeCorTreat
 	tidyverse
 	Matrix
+	cluster
+	preprocessCore
 	sva
+	vegan
 	preprocessCore
 	mgcv
 	org.Hs.eg.db
