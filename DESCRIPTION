@@ -11,31 +11,31 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports:
-	TSCAN
-	TreeCorTreat
-	tidyverse
-	Matrix
-	cluster
-	preprocessCore
-	sva
-	vegan
-	preprocessCore
-	mgcv
-	org.Hs.eg.db
-	parallel
-	igraph
-	mclust
-	scran
-	RColorBrewer
-	ggrepel
-	Seurat
-	parallel
-	igraph
-	patchwork
-	ggplot2
-	pheatmap
-	matrixStats	
-	cowplot
+	TSCAN,
+	TreeCorTreat,
+	tidyverse,
+	Matrix,
+	cluster,
+	preprocessCore,
+	sva,
+	vegan,
+	preprocessCore,
+	mgcv,
+	org.Hs.eg.db,
+	parallel,
+	igraph,
+	mclust,
+	scran,
+	RColorBrewer,
+	ggrepel,
+	Seurat,
+	parallel,
+	igraph,
+	patchwork,
+	ggplot2,
+	pheatmap,
+	matrixStats,	
+	cowplot,
 	stringr	
 Suggests: 
     knitr,
