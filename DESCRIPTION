@@ -29,6 +29,7 @@ Imports:
 	Seurat
 	parallel
 	igraph
+	patchwork
 	ggplot2
 Suggests: 
     knitr,
