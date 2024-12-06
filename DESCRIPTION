@@ -1,1 +1,38 @@
 
+Package: SampleClock
+Type: Package
+Title: Sample Clock
+Version: 0.1.0
+Date: 2024-12-04
+Author: Yi Wang, Hongkai Ji
+Maintainer: Boyang Zhang <bzhang34@jhu.edu>
+Description: SampleClock is a software tool that supports sample-level pseudotime analysis for single-cell omics data
+Depends: R (>= 3.6.1)
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr
+Encoding: UTF-8
+License: GPL-3
+LazyData: true
+Imports: 
+    Seurat,
+    RColorBrewer,
+    dplyr,
+    ggplot2,
+    ggraph,
+    harmony,
+    limma,
+    parallel,
+    pheatmap,
+    MASS,
+    Matrix,
+    ape,
+    combinat,
+    ggrepel,
+    grDevices,
+    igraph,
+    lmtest,
+    patchwork,
+    tidyr
+Suggests: 
+    rmarkdown,
+    knitr
