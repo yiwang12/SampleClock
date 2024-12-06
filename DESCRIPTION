@@ -31,10 +31,11 @@ Imports:
 	igraph
 	patchwork
 	ggplot2
+	pheatmap
+	matrixStats	
+	cowplot
+	stringr	
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-
-
-
