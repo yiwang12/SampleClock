@@ -11,9 +11,8 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports:
-	data.table
+	data.table (>= 1.9.4)
 	TSCAN
-	matrixStats
 	TreeCorTreat
 	tidyverse
 	Matrix
@@ -25,7 +24,16 @@ Imports:
 	igraph
 	mclust
 	scran
+	RColorBrewer
+	ggrepel
+	Seurat
+	parallel
+	igraph
+	ggplot2
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+
+
+
