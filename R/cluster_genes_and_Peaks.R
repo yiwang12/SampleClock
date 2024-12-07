@@ -186,7 +186,6 @@ get_normed_binned_each_cellType <- function(ptime, cellTypes, pseudotime, RNA = 
 #' 5. Performs k-means clustering (k=20) on combined expression
 #'
 #' @export
-
 FindHVG_clusters <- function(Zscore_concatenated, list_atacPeak_norm, list_atacPeak_binned, cellTypes, nfeature=10000){
   
   list_Zscore = list()

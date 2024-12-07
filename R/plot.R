@@ -50,7 +50,7 @@ create_pseudotime_plot = function(sample_info, rd, mclustobj, title, slope = NUL
   severity.color = c("#4DAF4A" ,"#377EB8",  "orange", "#E41A1C" )
   names(severity.color)[1:4]=c("Healthy","Mild","Moderate","Severe")
   
-  #' Create named vector
+  # Create named vector
   theme_paper = function(){
     theme(panel.border = element_blank(), axis.line = element_line()) + 
       theme(panel.grid.minor.x = element_blank(), panel.grid.minor.y = element_blank()) + 
