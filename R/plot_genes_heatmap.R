@@ -65,21 +65,21 @@ plot_heatmap<-function(list_norm, genes_, clu_genes_, pseudotime_){
 }
 
 
-# Function to generate and save heatmap visualizations for divergent and consistent gene clusters
-#
-# Parameters:
-# @param list_norm            Normalized expression data list
-# @param clu_genes           Named vector of gene cluster assignments
-# @param clusters_divergent   Vector of divergent cluster IDs
-# @param clusters_consistent  Vector of consistent cluster IDs
-# @param pseudotime_rna      Pseudotime ordering for samples
-# @param dir_plot           Output directory for saved plots (default: NULL)
-# @param interactive        Whether to display plots interactively (default: FALSE)
-#
-# Returns:
-# Creates PDF files of heatmaps and optionally displays them interactively
-#
-# @export
+#' Function to generate and save heatmap visualizations for divergent and consistent gene clusters
+#'
+#' Parameters:
+#' @param list_norm            Normalized expression data list
+#' @param clu_genes           Named vector of gene cluster assignments
+#' @param clusters_divergent   Vector of divergent cluster IDs
+#' @param clusters_consistent  Vector of consistent cluster IDs
+#' @param pseudotime_rna      Pseudotime ordering for samples
+#' @param dir_plot           Output directory for saved plots (default: NULL)
+#' @param interactive        Whether to display plots interactively (default: FALSE)
+#'
+#' Returns:
+#' Creates PDF files of heatmaps and optionally displays them interactively
+#'
+#' @export
 plot_consist_div <- function(list_norm, clu_genes, clusters_divergent, clusters_consistent, pseudotime_rna, dir_plot=NULL, interactive=F){
   dir.create(dir_plot)
   my_cols <- c("#0D0887FF", "#6A00A8FF", "#B12A90FF",
