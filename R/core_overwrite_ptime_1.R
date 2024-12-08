@@ -243,10 +243,10 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
       
       pb.ls.all <- mclapply(unq_id, function(tid){
         print(tid)
-        node_info <- leaves_info %>% dplyr::filte(label==tid)
+        node_info <- leaves_info %>% dplyr::filter(label==tid)
         print(node_info)
         #note: cell_meta must contain these columns: barcode, sample, celltype
-        sub_meta <- cell_meta %>% dplyr::filte(celltype %in% node_info$children)
+        sub_meta <- cell_meta %>% dplyr::filter(celltype %in% node_info$children)
   
         sub_count <- raw_count[, match(sub_meta$barcode, colnames(raw_count))]
         
@@ -271,10 +271,10 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
       
       pb.ls.all <- lapply(unq_id,function(tid){
         print(tid)
-        node_info <- leaves_info %>% dplyr::filte(label==tid)
+        node_info <- leaves_info %>% dplyr::filter(label==tid)
         print(node_info)
         # note: cell_meta must contain these columns: barcode, sample, celltype
-        sub_meta <- cell_meta %>% dplyr::filte(celltype %in% node_info$children)
+        sub_meta <- cell_meta %>% dplyr::filter(celltype %in% node_info$children)
         sub_count <- raw_count[, match(sub_meta$barcode, colnames(raw_count))]
 
         
@@ -316,7 +316,7 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
 
     # 
     pb.ls.agg = lapply(unq_y_root, function(ty){
-      label_names = leaves_info %>% dplyr::filte(y == ty) %>% pull(label) %>% unique()
+      label_names = leaves_info %>% dplyr::filter(y == ty) %>% pull(label) %>% unique()
       print(label_names)
       pb.ls.sub = pb.ls[which(names(pb.ls) %in% label_names)]
       pb.ls.agg = lapply(1:length(pb.ls.sub), function(i){
@@ -340,7 +340,7 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
     
     ctp.ls <- lapply(unq_y, function(ty){
       #print(ty)
-      node_info <- leaves_info %>% dplyr::filte(y==ty)
+      node_info <- leaves_info %>% dplyr::filter(y==ty)
       #print(node_info)
       sub_cell_clu = cell_clu[cell_clu %in% node_info$children]
       sub_cell_sample = cell_sample[cell_clu %in% node_info$children]
