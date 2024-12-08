@@ -4,16 +4,16 @@
 \alias{get_normed_binned_each_cellType}
 \title{Process and bin data for each cell type}
 \usage{
-get_normed_binned_each_cellType(ptime, cellTypes, pseudotime, RNA = T)
+get_normed_binned_each_cellType(pb.ls, cellTypes, pseudotime, RNA = T)
 }
 \arguments{
-\item{ptime}{List containing pseudobulk data in ptime$pb.ls$all}
-
 \item{cellTypes}{Vector of cell type names to process}
 
 \item{pseudotime}{Named vector of pseudotime values for each sample}
 
 \item{RNA}{Logical indicating if input is RNA data (default: TRUE)}
+
+\item{ptime}{List containing pseudobulk data in ptime$pb.ls$all}
 }
 \value{
 List of binned data for each cell type after normalization

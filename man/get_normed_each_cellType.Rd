@@ -4,14 +4,14 @@
 \alias{get_normed_each_cellType}
 \title{Normalize data for each cell type}
 \usage{
-get_normed_each_cellType(ptime, cellTypes, RNA = T)
+get_normed_each_cellType(pb.ls, cellTypes, RNA = T)
 }
 \arguments{
-\item{ptime}{List containing pseudotime analysis results with slot pb.ls$all containing data per cell type}
-
 \item{cellTypes}{Vector of cell type names to process}
 
 \item{RNA}{Logical indicating if processing RNA data (TRUE) or ATAC data (FALSE)}
+
+\item{ptime}{List containing pseudotime analysis results with slot pb.ls$all containing data per cell type}
 }
 \value{
 A list where each element contains normalized data for a cell type

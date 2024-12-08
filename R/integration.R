@@ -13,7 +13,14 @@
 getSeuratProcessed<-function(mat_log2,nfeature_){
   obj_=CreateSeuratObject(mat_log2)
   obj_=NormalizeData(obj_)
-  obj_$RNA@data=mat_log2
+  
+  # obj_$RNA@data=mat_log2
+  
+  obj_ <- SetAssayData(object = obj_,
+                       layer = "data",
+                       new.data = mat_log2)
+  
+  
   obj_=FindVariableFeatures(obj_,nfeature=nfeature_)
   
   obj_
@@ -104,8 +111,9 @@ get_consistency_pseudotime_sev_integratedData<-function(Features_sele_,
   print(5)
   
   # Run the standard workflow for visualization and clustering
-  pancreas.integrated@assays$integrated@data@x[is.na(pancreas.integrated@assays$integrated@data@x)] <- 0
-  pancreas.integrated@assays$integrated@data[is.na(pancreas.integrated@assays$integrated@data)] <- 0
+  
+  # pancreas.integrated@assays$integrated@data@x[is.na(pancreas.integrated@assays$integrated@data@x)] <- 0 #edited
+  # pancreas.integrated@assays$integrated@data[is.na(pancreas.integrated@assays$integrated@data)] <- 0 #edited
   
 
   # pancreas.integrated <- NormalizeData(object = pancreas.integrated)

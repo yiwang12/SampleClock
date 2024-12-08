@@ -80,35 +80,95 @@ plot_heatmap<-function(list_norm, genes_, clu_genes_, pseudotime_){
 #' Creates PDF files of heatmaps and optionally displays them interactively
 #'
 #' @export
-plot_consist_div <- function(list_norm, clu_genes, clusters_divergent, clusters_consistent, pseudotime_rna, dir_plot=NULL, interactive=F){
-  dir.create(dir_plot)
+plot_consist_div <- function(list_norm, clu_genes, clusters_divergent, clusters_consistent, 
+                             pseudotime_rna, dir_plot=NULL, interactive=F) {
+  # Input validation
+  if (is.null(list_norm) || length(list_norm) == 0) {
+    stop("list_norm cannot be empty or NULL")
+  }
+  if (is.null(clu_genes) || length(clu_genes) == 0) {
+    stop("clu_genes cannot be empty or NULL")
+  }
+  
+  # Create directory if it doesn't exist and dir_plot is provided
+  if (!is.null(dir_plot)) {
+    dir.create(dir_plot, showWarnings = FALSE)
+  }
+  
+  # Define colors
   my_cols <- c("#0D0887FF", "#6A00A8FF", "#B12A90FF",
                "#E16462FF", "#FCA636FF", "#F0F921FF")
   
-  if(!is.null(dir_plot)){
-    pdf(paste0(dir_plot, "/geneCluster_heatmap_div.pdf"))
-    genes_tmp = names(clu_genes)[as.character(clu_genes)%in%as.character(clusters_divergent)]
-    p1 = plot_heatmap(list_norm, genes_tmp, clu_genes, pseudotime_rna)
-    print(p1)
-    dev.off()
+  # Initialize plot variables
+  p1 <- p2 <- NULL
+  
+  # Create divergent genes plot
+  if (!is.null(dir_plot)) {
+    genes_div <- names(clu_genes)[as.character(clu_genes) %in% as.character(clusters_divergent)]
+    if (length(genes_div) > 0) {
+      pdf(file.path(dir_plot, "geneCluster_heatmap_div.pdf"))
+      p1 <- plot_heatmap(list_norm, genes_div, clu_genes, pseudotime_rna)
+      print(p1)
+      dev.off()
+    }
     
-    
-    pdf(paste0(dir_plot, "/geneCluster_heatmap_consistent.pdf"))
-    genes_tmp = names(clu_genes)[as.character(clu_genes)%in%as.character(clusters_consistent)]
-    p2 = plot_heatmap(list_norm, genes_tmp, clu_genes, pseudotime_rna)
-    print(p2)
-    dev.off()
+    # Create consistent genes plot
+    genes_cons <- names(clu_genes)[as.character(clu_genes) %in% as.character(clusters_consistent)]
+    if (length(genes_cons) > 0) {
+      pdf(file.path(dir_plot, "geneCluster_heatmap_consistent.pdf"))
+      p2 <- plot_heatmap(list_norm, genes_cons, clu_genes, pseudotime_rna)
+      print(p2)
+      dev.off()
+    }
   }
- 
   
-  
-  if(interactive){
-    print(p1)
-    
-    print(p2)
+  # Display plots if interactive is TRUE and plots were created
+  if (interactive) {
+    if (!is.null(p1)) print(p1)
+    if (!is.null(p2)) print(p2)
   }
-  # print(p1)
-  # print(p2)
   
+  # Return the plot objects invisibly
+  invisible(list(divergent = p1, consistent = p2))
 }
 
+# # Helper function to check if input data is valid
+# check_plot_data <- function(x) {
+#   if (is.null(x) || length(x) == 0 || all(is.na(x))) {
+#     return(FALSE)
+#   }
+#   return(TRUE)
+# }
+# 
+# plot_consist_div <- function(list_norm, clu_genes, clusters_divergent, clusters_consistent, pseudotime_rna, dir_plot=NULL, interactive=F){
+#   dir.create(dir_plot)
+#   my_cols <- c("#0D0887FF", "#6A00A8FF", "#B12A90FF",
+#                "#E16462FF", "#FCA636FF", "#F0F921FF")
+#   
+#   if(!is.null(dir_plot)){
+#     pdf(paste0(dir_plot, "/geneCluster_heatmap_div.pdf"))
+#     genes_tmp = names(clu_genes)[as.character(clu_genes)%in%as.character(clusters_divergent)]
+#     p1 = plot_heatmap(list_norm, genes_tmp, clu_genes, pseudotime_rna)
+#     print(p1)
+#     dev.off()
+#     
+#     
+#     pdf(paste0(dir_plot, "/geneCluster_heatmap_consistent.pdf"))
+#     genes_tmp = names(clu_genes)[as.character(clu_genes)%in%as.character(clusters_consistent)]
+#     p2 = plot_heatmap(list_norm, genes_tmp, clu_genes, pseudotime_rna)
+#     print(p2)
+#     dev.off()
+#   }
+#  
+#   
+#   
+#   if(interactive){
+#     print(p1)
+#     
+#     print(p2)
+#   }
+#   # print(p1)
+#   # print(p2)
+#   
+# }
+# 

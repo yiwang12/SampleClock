@@ -26,6 +26,8 @@ get_processed_peaks <- function(mat_, RNA = T){
 
   mat_
 }
+
+
 #' Process peak matrix data with options for RNA and non-RNA normalization
 #'
 #' @param mat_ Input matrix to process
@@ -47,18 +49,19 @@ get_binned<-function(mat_atac_aggregated, pseudotime_atac_agg){
 
   
   # x <- order(pseudotime_atac_agg, decreasing = F)
+  nbin=5
   size_bin = round((max(pseudotime_atac_agg)/5))
   
   
   # pseudotime_atac_agg[bins[[1]]]
   
-  mat_atac_aggregated_binned=array(dim=c(nrow(mat_atac_aggregated),length(bins)))
+  mat_atac_aggregated_binned=array(dim=c(nrow(mat_atac_aggregated),nbin))
   rownames(mat_atac_aggregated_binned) = rownames(mat_atac_aggregated)
   
-  for(kbin in 1:length(bins)){
+  for(kbin in 1:nbin){
     kst = size_bin*(kbin-1) 
     kend = size_bin*kbin
-    if(kbin == length(bins)){kend=max(pseudotime_atac_agg)}
+    if(kbin == nbin){kend=max(pseudotime_atac_agg)}
     
     which_withBin = which(pseudotime_atac_agg > kst & pseudotime_atac_agg <= kend)
     
@@ -95,7 +98,8 @@ get_binned<-function(mat_atac_aggregated, pseudotime_atac_agg){
 #' For RNA data, performs RNA-specific normalizations. For ATAC data, performs ATAC-specific processing.
 #'
 #' @export
-get_normed_each_cellType <- function(ptime, cellTypes, RNA = T){
+get_normed_each_cellType <- function(pb.ls, cellTypes, RNA = T){
+  ptime=list(pb.ls=pb.ls)
   list_atacPeak_norm = list()
   list_atacPeak_binned = list()
   
@@ -140,8 +144,8 @@ get_normed_each_cellType <- function(ptime, cellTypes, RNA = T){
 #'    - Bins normalized data using get_binned()
 #'
 #' @export
-get_normed_binned_each_cellType <- function(ptime, cellTypes, pseudotime, RNA = T){
-  
+get_normed_binned_each_cellType <- function( pb.ls, cellTypes, pseudotime, RNA = T){
+  ptime = list(pb.ls=pb.ls)
   list_atacPeak_norm = list()
   list_atacPeak_binned = list()
   

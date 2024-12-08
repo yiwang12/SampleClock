@@ -228,15 +228,18 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
                                  HVG = F, qnorm = F, batch_correction = F, batch = NULL, 
                                  clr = F, adj_cov = NULL, parallel = T, num_cores = 10
 ){
-  print(111111)
+  # print(111111)
   
   unq_id <- unique(leaves_info$label)
-  print(2222)
+  # print(2222)
+  
+  print(unq_id)
+  # [1] "All"  "T"    "Mono" "B"   
   
   unq_y <- setdiff(unique(leaves_info$y),max(leaves_info$y)) #remove root
-  print(3333)
+  # print(3333)
   unq_y_root = unique(leaves_info$y)
-  print(4444)
+  # print(4444)
   tot_sample_size = length(unique(cell_meta$sample))
   
   
@@ -261,13 +264,15 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
         # pseudobulk construction (please fill in)
         pb <- get_sample_pb(s = sub_count, pt = sub_meta$sample, 
                             HVG = HVG, qnorm = qnorm, combat = batch_correction, batch = batch)
+        print("str(pb)")
         print(str(pb))
+        
         return(pb)
       }, mc.cores = num_cores)
       
     } else{
       
-      print(5555)
+      # print(5555)
       print(unq_id)
       
       pb.ls.all <- lapply(unq_id,function(tid){
@@ -279,13 +284,13 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
         sub_count <- raw_count[, match(sub_meta$barcode, colnames(raw_count))]
         # print("head(sub_meta)")
         # print(head(sub_meta))
-        print("00000")
-        print(dim(sub_meta))
-        print(dim(sub_count))
-        print(head(sub_meta))
-        print(head(sub_count[1:2,1:2]))
-        
-        print("00000")
+        # print("00000")
+        # print(dim(sub_meta))
+        # print(dim(sub_count))
+        # print(head(sub_meta))
+        # print(head(sub_count[1:2,1:2]))
+        # 
+        # print("00000")
         #print("head(match(sub_meta$barcode, colnames(raw_count)))")
         # print(head(match(sub_meta$barcode, colnames(raw_count))))
         
@@ -299,38 +304,38 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
         print((unq_sample_size))
         
         # pseudobulk construction (please fill in)
-        pb <- get_sample_pb(s = sub_count, pt = sub_meta$sample, 
+        pb <- get_sample_pb(s = data.matrix(sub_count), pt = sub_meta$sample, 
                             HVG = HVG, qnorm = qnorm, 
                             combat = batch_correction, batch = batch)
-        print(str(pb))
+        # print(str(pb))
         # 
         # print("00001110")
         # print(names(pb[[1]]))
         # ls(pb)
-        print(head(pb$all))
+        # print(head(pb$all))
         return(pb)
       })
       
       
-      print(66666)
+      # print(66666)
       
     }
-    print(77777)
+    # print(77777)
     
-    print(names(pb.ls.all))
+    # print(names(pb.ls.all))
     # NULL
     pb = lapply(pb.ls.all, function(x) x$all)
     names(pb) = unq_id
-    print(88888)
+    # print(88888)
     
-    print(names(pb))
+    # print(names(pb))
     
     
     which_kp=which(sapply(pb, function(xx){!is.null(xx)}))
     # pb <- pb[-which(sapply(pb, is.null))] ##!!!
     pb=pb[which_kp]
-    print(99999)
-    print(names(pb))
+    # print(99999)
+    # print(names(pb))
     
     pb.ls = lapply(pb.ls.all, function(x) x$hvg)
     names(pb.ls) = unq_id
@@ -340,14 +345,14 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
     # pb.ls <- pb.ls[-which(sapply(pb.ls, is.null))] #!!!
     pb.ls=pb.ls[which_kp]
     
-    print(3333333)
-    print(unq_y_root)
-    # [1] 2 1 0
-    # print(label)
-    print(names(pb.ls))
-    print(3333333)
-    print(3333333)
-    
+    # print(3333333)
+    # print(unq_y_root)
+    # # [1] 2 1 0
+    # # print(label)
+    # print(names(pb.ls))
+    # print(3333333)
+    # print(3333333)
+    # 
     pb.ls.agg = lapply(unq_y_root, function(ty){
       label_names = leaves_info %>% filter(y == ty) %>% pull(label) %>% unique()
       print(label_names)
