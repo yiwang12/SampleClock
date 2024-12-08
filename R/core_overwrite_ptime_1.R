@@ -196,6 +196,7 @@ run_pseudo_diff_gene = function(x, sample_metadata = NULL, cluster = 'all',
   
   return(result)
 }
+
 #' Extract features (expression or proportion) for each node in the cell type tree
 #'
 #' Parameters:
@@ -228,30 +229,24 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
                                  HVG = F, qnorm = F, batch_correction = F, batch = NULL, 
                                  clr = F, adj_cov = NULL, parallel = T, num_cores = 10
 ){
-  # print(111111)
-  
+
   unq_id <- unique(leaves_info$label)
-  # print(2222)
-  
+
   print(unq_id)
-  # [1] "All"  "T"    "Mono" "B"   
-  
+
   unq_y <- setdiff(unique(leaves_info$y),max(leaves_info$y)) #remove root
-  # print(3333)
   unq_y_root = unique(leaves_info$y)
-  # print(4444)
   tot_sample_size = length(unique(cell_meta$sample))
-  
   
   if (features == 'expr'){
     if (parallel){
       
       pb.ls.all <- mclapply(unq_id, function(tid){
         print(tid)
-        node_info <- leaves_info %>% filter(label==tid)
+        node_info <- leaves_info %>% dplyr::filte(label==tid)
         print(node_info)
         #note: cell_meta must contain these columns: barcode, sample, celltype
-        sub_meta <- cell_meta %>% filter(celltype %in% node_info$children)
+        sub_meta <- cell_meta %>% dplyr::filte(celltype %in% node_info$children)
   
         sub_count <- raw_count[, match(sub_meta$barcode, colnames(raw_count))]
         
@@ -272,29 +267,16 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
       
     } else{
       
-      # print(5555)
       print(unq_id)
       
       pb.ls.all <- lapply(unq_id,function(tid){
         print(tid)
-        node_info <- leaves_info %>% filter(label==tid)
+        node_info <- leaves_info %>% dplyr::filte(label==tid)
         print(node_info)
         # note: cell_meta must contain these columns: barcode, sample, celltype
-        sub_meta <- cell_meta %>% filter(celltype %in% node_info$children)
+        sub_meta <- cell_meta %>% dplyr::filte(celltype %in% node_info$children)
         sub_count <- raw_count[, match(sub_meta$barcode, colnames(raw_count))]
-        # print("head(sub_meta)")
-        # print(head(sub_meta))
-        # print("00000")
-        # print(dim(sub_meta))
-        # print(dim(sub_count))
-        # print(head(sub_meta))
-        # print(head(sub_count[1:2,1:2]))
-        # 
-        # print("00000")
-        #print("head(match(sub_meta$barcode, colnames(raw_count)))")
-        # print(head(match(sub_meta$barcode, colnames(raw_count))))
-        
-        # print((unq_sample_size))
+
         
         unq_sample_size = length(unique(sub_meta$sample))
         if (unq_sample_size < filter_pct * tot_sample_size){
@@ -307,30 +289,17 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
         pb <- get_sample_pb(s = data.matrix(sub_count), pt = sub_meta$sample, 
                             HVG = HVG, qnorm = qnorm, 
                             combat = batch_correction, batch = batch)
-        # print(str(pb))
-        # 
-        # print("00001110")
-        # print(names(pb[[1]]))
-        # ls(pb)
-        # print(head(pb$all))
+
         return(pb)
       })
       
       
-      # print(66666)
-      
+
     }
-    # print(77777)
-    
-    # print(names(pb.ls.all))
-    # NULL
+
     pb = lapply(pb.ls.all, function(x) x$all)
     names(pb) = unq_id
-    # print(88888)
-    
-    # print(names(pb))
-    
-    
+
     which_kp=which(sapply(pb, function(xx){!is.null(xx)}))
     # pb <- pb[-which(sapply(pb, is.null))] ##!!!
     pb=pb[which_kp]
@@ -344,17 +313,10 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
     
     # pb.ls <- pb.ls[-which(sapply(pb.ls, is.null))] #!!!
     pb.ls=pb.ls[which_kp]
-    
-    # print(3333333)
-    # print(unq_y_root)
-    # # [1] 2 1 0
-    # # print(label)
-    # print(names(pb.ls))
-    # print(3333333)
-    # print(3333333)
+
     # 
     pb.ls.agg = lapply(unq_y_root, function(ty){
-      label_names = leaves_info %>% filter(y == ty) %>% pull(label) %>% unique()
+      label_names = leaves_info %>% dplyr::filte(y == ty) %>% pull(label) %>% unique()
       print(label_names)
       pb.ls.sub = pb.ls[which(names(pb.ls) %in% label_names)]
       pb.ls.agg = lapply(1:length(pb.ls.sub), function(i){
@@ -366,11 +328,7 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
       samp <- names(samp)[samp==length(pb.ls.agg)]
       pb.ls.agg <- do.call(rbind,lapply(pb.ls.agg,function(pb) pb[,samp]))
     })
-    # print(44444444)
-    # 
-    # names(pb.ls.agg) = unq_y_root
-    # print(str(pb.ls.agg))
-    # pb.ls.agg=NA
+
     pb.all = list(hvg = pb.ls, agg = pb.ls.agg, all = pb)
     return(pb.all)
     
@@ -382,7 +340,7 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
     
     ctp.ls <- lapply(unq_y, function(ty){
       #print(ty)
-      node_info <- leaves_info %>% filter(y==ty)
+      node_info <- leaves_info %>% dplyr::filte(y==ty)
       #print(node_info)
       sub_cell_clu = cell_clu[cell_clu %in% node_info$children]
       sub_cell_sample = cell_sample[cell_clu %in% node_info$children]
@@ -393,7 +351,6 @@ get_tree_node_feature = function(leaves_info, features = c('expr','prop'),
       ctp = get_ctp(clu = sub_cell_clu, pt = sub_cell_sample, 
                     clr = clr, batch_correction = batch_correction, 
                     batch = batch, adj_cov = NULL)
-      #print(str(ctp))
       return(ctp)
     })
     names(ctp.ls) = unq_y
