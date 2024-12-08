@@ -240,7 +240,7 @@ plot_consist_div(
 <img src="pca_sev.png" alt="Alt text" width="40%"> <img src="cca_sev.png" alt="Alt text" width="40%">
 <img src="pca_pseudotime.png" alt="Alt text" width="40%"> <img src="cca_pseudotime.png" alt="Alt text" width="40%">
 
-<img src="heatmap_consistent_B.png" alt="Alt text" width="40%"><img src="heatmap_consistent_Mono.png" alt="Alt text" width="40%">
+<img src="heatmap_consistent_Mono.png" alt="Alt text" width="40%">
 
 ## Output Files and Formats
 The package generates several types of output files:
