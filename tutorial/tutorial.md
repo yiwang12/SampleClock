@@ -1,7 +1,7 @@
 # SampleClock Package Tutorial
 
 ## Overview
-SampleClock is an R package for integrating and analyzing multi-modal single-cell data across samples, specifically designed for pseudotime inference and gene expression pattern analysis. This tutorial will guide you through the process of analyzing paired RNA-seq and ATAC-seq data to identify temporal patterns in gene expression.
+SampleClock is an R package for integrating and analyzing multi-modal single-cell data across samples, specifically designed for pseudotime inference and gene expression pattern analysis. This tutorial will guide you through the process of analyzing unpaired RNA-seq and ATAC-seq data to identify temporal patterns in gene expression.
 
 ## Installation
 This section covers the installation of SampleClock and its dependencies. SampleClock can be installed directly from GitHub using devtools.
