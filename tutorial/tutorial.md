@@ -109,6 +109,7 @@ pb_ATAC = get_tree_node_feature(
     filter_pct = .8
 )
 ```
+<img src="leaves_info.png" alt="Alt text" width="20%">
 
 ### 3. Process Pseudobulk Data
 Here we normalize and process the pseudobulk data to prepare it for integration. This step ensures that the RNA and ATAC data are comparable and suitable for joint analysis.
@@ -236,6 +237,10 @@ plot_consist_div(
     dir_plot="plot"
 )
 ```
+<img src="pca_sev.png" alt="Alt text" width="40%"> <img src="cca_sev.png" alt="Alt text" width="40%">
+<img src="pca_pseudotime.png" alt="Alt text" width="40%"> <img src="cca_pseudotime.png" alt="Alt text" width="40%">
+
+<img src="heatmap_consistent_Mono.png" alt="Alt text" width="40%"><img src="heatmap_div_Mono.png" alt="Alt text" width="40%">
 
 ## Output Files and Formats
 The package generates several types of output files:
