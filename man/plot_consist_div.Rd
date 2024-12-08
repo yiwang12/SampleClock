@@ -7,8 +7,8 @@
 plot_consist_div(
   list_norm,
   clu_genes,
-  clusters_divergent,
   clusters_consistent,
+  clusters_divergent,
   pseudotime_rna,
   dir_plot = NULL,
   interactive = F
@@ -19,9 +19,9 @@ plot_consist_div(
 
 \item{clu_genes}{Named vector of gene cluster assignments}
 
-\item{clusters_divergent}{Vector of divergent cluster IDs}
-
 \item{clusters_consistent}{Vector of consistent cluster IDs}
+
+\item{clusters_divergent}{Vector of divergent cluster IDs}
 
 \item{pseudotime_rna}{Pseudotime ordering for samples}
 

@@ -80,7 +80,7 @@ plot_heatmap<-function(list_norm, genes_, clu_genes_, pseudotime_){
 #' Creates PDF files of heatmaps and optionally displays them interactively
 #'
 #' @export
-plot_consist_div <- function(list_norm, clu_genes, clusters_divergent, clusters_consistent, 
+plot_consist_div <- function(list_norm, clu_genes, clusters_consistent, clusters_divergent, 
                              pseudotime_rna, dir_plot=NULL, interactive=F) {
   # Input validation
   if (is.null(list_norm) || length(list_norm) == 0) {
